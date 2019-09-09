@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="">
+</head>
+<body>
+	<p>Seu nome é: <span data-bind="text: primeiroNome"></span></p>
+	<p>Seu sobrenome: <span data-bind="text: sobrenome"></span></p>
+	<div class="heading">Hello, <input data-bind="textInput: completo"/></div>
+	
+</body>
+	<script type="text/javascript" src="knockout.js"></script>
+	<script type="text/javascript">
+		function Model(){
+			this.primeiroNome = ko.observable('Anderson');
+			this.sobrenome    = ko.observable('Lucas');
+			this.completo     = ko.pureComputed({
+				read: function(){
+					return this.primeiroNome()+ " "+this.sobrenome();
+				},
+				write: function(value) {
+					var espaco = value.indexOf(" ");
+
+					if (espaco > 0) {
+						this.primeiroNome(value.substring(0, espaco));
+						this.sobrenome(value.substring(espaco+1));
+					}
+				},
+				owner: this
+			
+			})
+
+		}
+		var myModel = new Model();
+
+		ko.applyBindings(myModel);
+	</script>
+</html>

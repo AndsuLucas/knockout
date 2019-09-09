@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="">
+</head>
+<body>
+	Nome:<input type="text" data-bind="textInput: firstName">
+	Sobrenome:<input data-bind="textInput: lastName">
+	<p data-bind="text: fullName"></p>
+</body>
+	<script type="text/javascript" src="knockout.js"></script>
+	<script type="text/javascript">
+		function MyModule() {
+			this.firstName = ko.observable('Primeiro nome');
+			this.lastName = ko.observable('Segundo nome');
+			this.fullName = ko.pureComputed(function(){
+				return this.firstName() + " " + this.lastName();
+			}, this);
+		}
+		ko.applyBindings(new MyModule());
+	</script>
+	
+</html>

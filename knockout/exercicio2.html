@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="">
+</head>
+<body>
+	<div>Enter bid price: <input data-bind="value: formattedPrice"/></div>
+	<div>(Raw value: <span data-bind="text: price"></span>)</div>
+</body>
+		<script type="text/javascript" src="knockout.js"></script>
+		<script>
+			function MyVieModel() {
+				this.price = ko.observable(25.99);
+				this.formattedPrice  = ko.pureComputed({
+					read: function(){
+						return '$'+this.price().toFixed(2);
+					},
+					write: function(value){
+						var sanitized_value = parseFloat(value.replace(/[^\.0-9]/g, ""));
+						this.price(sanitized_value);
+					},
+					owner:this
+				});
+			}
+			ko.applyBindings(new MyVieModel());
+		</script>
+
+</html>

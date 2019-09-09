@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="">
+	
+</head>
+<body>
+	<!-- <p>Seu nome é <span data-bind="text: personName"></span></p> -->
+	<p>Seu nome é: <span data-bind="text: primeiroNome"></span></p>
+	<p>Seu sobrenome: <span data-bind="text: sobrenome"></span></p>
+</body>
+<script type="text/javascript" src="knockout.js"></script>
+<script type="text/javascript">
+	var myView = {
+		personName: ko.observable('Andsu'), 
+		idade: 19
+	}
+	ko.applyBindings(myView);
+	myView.personName.subscribe(function(){
+		//vai executar algo com base na condição
+		ko.when(function(){
+			return myView.personName() !== 'xablau';
+		}, function(result){
+			alert(result);
+		})
+
+	}, "beforeChange");
+
+	var myViewComArray = ko.observableArray([1,2]);
+	
+
+	myViewComArray.subscribe(function(){
+		alert("ok");
+	})
+	
+	function AppViewModel() {
+    	this.firstName = ko.observable('Anderson');
+    	this.lastName = ko.observable('Lucas');
+    	this.fullName = ko.computed(function(){
+			return this.firstName() +" "+this.lastName();
+		}, this);
+	}
+
+
+
+</script>
+</html>
