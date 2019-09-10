@@ -13,13 +13,14 @@
 		<div data-bind="foreach: produce">
 			<label>
 				<input type="checkbox" data-bind="checkedValue: $data, checked: $parent.selectedProduce"/>
-				<span data-bind="text: $data"></span>
+				<span data-bind="text: r"></span>
 			</label>
 		</div>
 		
 	</body>
 	<script type="text/javascript" src="knockout.js"></script>
-	<script  type="text/javascript" charset="utf-8" async defer>
+	<script  type="text/javascript" charset="utf-8" async defer
+>
 		function MyViewModel() {
 			this.produce = ['Apple', 'Banana', 'Celery', 'Corn', 'Orange', 'Spinach' ];
 			this.selectedProduce = ko.observableArray();

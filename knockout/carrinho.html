@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="">
+</head>
+<body>
+	<div>
+		<div>
+			NewItem: <input type="" name="" data-bind="value: productName"/>
+			<select data-bind="options: category, optionsText: 'descricao', value: selectedCategory,  optionsCaption: '-- Select Product --'"></select>
+			<button type="" data-bind="click: addNewProduct">Novo produto</button>
+			<span style="color: red; font-weight: bold;" data-bind="visible: !newProductIsValid();">Dados para a inserção de produstos são inválido.</span>
+		</div>
+		<table>
+			<thead>
+				<tr>
+					<th>Nome</th>
+					<th>Categoria</th>
+				</tr>
+			</thead>
+			<tbody data-bind="foreach: products">
+				<tr>
+					<td data-bind="text: product_name"></td>
+					
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+	<script type="text/javascript" src="knockout.js"></script>
+	<script type="text/javascript">
+		var vm = {
+
+			products:          ko.observableArray( [] ),
+			productName:       ko.observable(),
+			selectedCategory:  ko.observable(),
+			newProductIsValid: ko.observable(true),
+			
+			category: ko.observableArray([
+				{descricao: "Alimento", id: 1},
+				{descricao: "Eletrodomestico", id: 2},
+				{descricao: "Limpeza", id: 3}
+			]),
+
+			addNewProduct: function(){
+				var elementsIsUndefined = ( (this.productName() && this.selectedCategory() ) === undefined);
+				
+				if (elementsIsUndefined) {
+				
+					this.newProductIsValid(false);
+					return;
+				
+				}
+				var newProduct          = new Object();
+				newProduct.product_name = this.productName();
+				newProduct.category     = this.selectedCategory();
+				
+				this.products().push(newProduct);			
+				console.log(this.products());
+			}
+		}
+
+
+		ko.computed(function(){
+		 	if (this.productName() !== undefined && this.selectedCategory() !== undefined) {
+		 		this.products.push({productName: this.productName()})
+				console.log(this.selectedCategory())
+		 	}
+
+		}, vm);
+
+		ko.applyBindings(vm);
+	</script>
+</html

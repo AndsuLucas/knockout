@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="">
+</head>
+<body>
+	<div>
+		<input type="" name="" data-bind="textInput	: inputValue">
+		<span class="" style="font-weight: bold; color: red; " data-bind="visible: !isNumeric()">Os valores devem ser numéricos</span>
+		<p>O valor aceito <span data-bind="text: aceptedValues"></span></p>
+	</div
+
+</body>
+	<script type="text/javascript" src="knockout.js"></script>
+	<script type="text/javascript">
+		function FormModel(){
+			this.isNumeric     = ko.observable(true);
+			this.aceptedValues = ko.observable(123); 
+			
+			this.inputValue = ko.pureComputed({
+				read:this.aceptedValues //le esse valor input value
+				,
+				write: function(value){
+					if (isNaN(value)){
+						this.isNumeric(false)
+					}else{
+						this.isNumeric(true);
+						this.aceptedValues(value);
+					}
+				},
+				owner: this
+			})			
+
+		}
+		ko.applyBindings(new FormModel());
+	</script>
+</html>
